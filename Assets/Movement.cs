@@ -9,8 +9,10 @@ public class Movement : MonoBehaviour
     [SerializeField] private LayerMask solidEnvironment;
     [SerializeField] private Collider2D baseCollider; 
     [Header ("Movement Values")]
-    [SerializeField] float jumpForce = 50f;
+    [SerializeField] float jumpHeight = 1.5f;
     [SerializeField] float moveSpeed = 12f;
+    [SerializeField] float fallGravityMultiplier = 2.5f;
+    [SerializeField] bool enableSnappyFall = true;
 
 
     [SerializeField] BoxCollider2D playerCollider;
@@ -22,6 +24,8 @@ public class Movement : MonoBehaviour
     private bool jumpInput = false;
     private float horizontal = 0f;
 
+    float jumpVelocity; // will be calculated according to jump height
+
     void Awake() { 
 
         if (!playerRB) 
@@ -31,12 +35,19 @@ public class Movement : MonoBehaviour
             playerCollider = GetComponent<BoxCollider2D>();
     }
 
+    private void Start() {
+        jumpVelocity = Mathf.Sqrt(2 * -playerRB.gravityScale * Physics.gravity.y * jumpHeight);
+    }
+
     void Update() {
         TakeInput();
     }
     void FixedUpdate() {
         Move();
         Jump();
+        if (enableSnappyFall) {
+            SnappyFall();
+        }
     }
 
     private void TakeInput() {
@@ -49,7 +60,7 @@ public class Movement : MonoBehaviour
     public void Jump() {
         if (baseCollider.IsTouchingLayers(solidEnvironment) && jumpInput) {
             jumpInput = false;
-            playerRB.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+            playerRB.velocity = Vector2.up * jumpVelocity;
         }
     }
     public void Move() {
@@ -62,5 +73,9 @@ public class Movement : MonoBehaviour
 
         headRotate = horizontal < 0 ? 180 : horizontal > 0 ? 0 : headRotate;
         transform.localRotation = Quaternion.Euler(0f, headRotate, 0f);
+    }
+    public void SnappyFall() {
+        if (playerRB.velocity.y < 0)
+            playerRB.velocity += Physics.gravity * playerRB.gravityScale * Vector2.up * (fallGravityMultiplier - 1f);
     }
 }

@@ -5,8 +5,14 @@ using UnityEngine;
 [System.Serializable]
 public class Dialogue {
     public string characterName  = "beta";
+    public string sentence = "maybe u forgot to fill the sentences lol";
 
     public virtual void StartDialogue() {
-        DialogueManager.Instance.SpeakDialogue(characterName, new List<string>());
+        SpeakDialogue(characterName, sentence);
+    }
+    public void SpeakDialogue(string character, string sentence) {
+        Debug.Log(character + " : ");
+        Debug.Log(sentence);
+        UIDialogueManager.Instance.DisplayDialogue(character, sentence);
     }
 }

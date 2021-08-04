@@ -19,6 +19,7 @@ public class Movement : MonoBehaviour
     [SerializeField] BoxCollider2D playerCollider;
     [SerializeField] bool controlOnFlight = true;
 
+
     private bool isGrounded;
     private float headRotate = 0f;
     float playerSpeed;
@@ -70,9 +71,9 @@ public class Movement : MonoBehaviour
     public void Move() {
         if (baseCollider.IsTouchingLayers(solidEnvironment)) {
 
-            if (horizontal != 0f)
+            if (horizontal != 0f) {
                 playerRB.velocity = new Vector2(horizontal * moveSpeed, playerRB.velocity.y);
-
+            }
         }
         else if (controlOnFlight) {
             if (horizontal != 0f) {

@@ -11,6 +11,7 @@ public class Movement : MonoBehaviour
     [Header ("Movement Values")]
     [SerializeField] float jumpHeight = 1.5f;
     [SerializeField] float moveSpeed = 12f;
+    [SerializeField] float moveSpeedOnFlight = 6f;
     [SerializeField] float fallGravityMultiplier = 2.5f;
     [SerializeField] bool enableSnappyFall = true;
 
@@ -20,6 +21,7 @@ public class Movement : MonoBehaviour
 
     private bool isGrounded;
     private float headRotate = 0f;
+    float playerSpeed;
 
     private bool jumpInput = false;
     private float horizontal = 0f;
@@ -36,23 +38,24 @@ public class Movement : MonoBehaviour
     }
 
     private void Start() {
-        jumpVelocity = Mathf.Sqrt(2 * -playerRB.gravityScale * Physics.gravity.y * jumpHeight);
+        jumpVelocity = Mathf.Sqrt(2 * -playerRB.gravityScale * Physics2D.gravity.y * jumpHeight);
+        Debug.Log(Physics.gravity.y);
     }
 
     void Update() {
         TakeInput();
-    }
-    void FixedUpdate() {
-        Move();
-        Jump();
         if (enableSnappyFall) {
             SnappyFall();
         }
     }
+    void FixedUpdate() {
+        Move();
+        Jump();
+    }
 
     private void TakeInput() {
         horizontal = Input.GetAxis("Horizontal");
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && baseCollider.IsTouchingLayers(solidEnvironment))
             jumpInput = true;
 
     }
@@ -60,15 +63,21 @@ public class Movement : MonoBehaviour
     public void Jump() {
         if (baseCollider.IsTouchingLayers(solidEnvironment) && jumpInput) {
             jumpInput = false;
-            playerRB.velocity = Vector2.up * jumpVelocity;
+            playerRB.velocity += Vector2.up * jumpVelocity;
+            //playerRB.AddForce(Vector2.up * 400f, ForceMode2D.Impulse);
         }
     }
     public void Move() {
-        if (baseCollider.IsTouchingLayers(solidEnvironment) || controlOnFlight) {
+        if (baseCollider.IsTouchingLayers(solidEnvironment)) {
 
             if (horizontal != 0f)
                 playerRB.velocity = new Vector2(horizontal * moveSpeed, playerRB.velocity.y);
 
+        }
+        else if (controlOnFlight) {
+            if (horizontal != 0f) {
+                playerRB.velocity = new Vector2(horizontal * moveSpeedOnFlight, playerRB.velocity.y);
+            }
         }
 
         headRotate = horizontal < 0 ? 180 : horizontal > 0 ? 0 : headRotate;
@@ -76,6 +85,6 @@ public class Movement : MonoBehaviour
     }
     public void SnappyFall() {
         if (playerRB.velocity.y < 0)
-            playerRB.velocity += Physics.gravity * playerRB.gravityScale * Vector2.up * (fallGravityMultiplier - 1f);
+            playerRB.velocity += Physics.gravity * playerRB.gravityScale * Vector2.up * (fallGravityMultiplier - 1f) * Time.deltaTime;
     }
 }

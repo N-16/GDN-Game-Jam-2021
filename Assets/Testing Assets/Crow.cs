@@ -8,6 +8,7 @@ public class Crow : MonoBehaviour
     [SerializeField] Animator crowAnimator;
     [SerializeField] CircleCollider2D crowTerritoryTile;
     [SerializeField] BoxCollider2D crowScaringRegion;
+    [SerializeField] float comeDownCoolDown = 2.5f; 
 
     bool onFlight = false;
 
@@ -17,13 +18,14 @@ public class Crow : MonoBehaviour
         }
         if (!onFlight) {
             if (Physics2D.OverlapBox(crowScaringRegion.transform.position, crowScaringRegion.bounds.size, 0f, scareCrowLayer)) {
+                StopCoroutine(ComeDownCoroutine());
                 PlayAnimation(CrowAnimations.Fly);
                 onFlight = true;
             }
         }
         else {
             if (!Physics2D.OverlapBox(crowScaringRegion.transform.position, crowScaringRegion.bounds.size, 0f, scareCrowLayer)) {
-                PlayAnimation(CrowAnimations.ComeBack);
+                StartCoroutine(ComeDownCoroutine());
                 onFlight = false;
             }
         }
@@ -36,6 +38,12 @@ public class Crow : MonoBehaviour
 
     void PlayAnimation(CrowAnimations animation) {
         crowAnimator.SetInteger("animationID", (int) animation);
+    }
+
+    IEnumerator ComeDownCoroutine() {
+        yield return new WaitForSeconds(comeDownCoolDown);
+        if (!Physics2D.OverlapBox(crowScaringRegion.transform.position, crowScaringRegion.bounds.size, 0f, scareCrowLayer))
+            PlayAnimation(CrowAnimations.ComeBack);
     }
 }
 

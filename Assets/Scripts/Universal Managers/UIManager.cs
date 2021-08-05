@@ -23,7 +23,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] Text bigCentredText;
 
     public void DisplayBigCentredText(string text) {
-        Debug.Log("WHY TEXT AINT WORKING THEN");
         bigCentredText.text = text;
     }
 }

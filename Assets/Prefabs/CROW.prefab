@@ -174,7 +174,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 8, y: 1}
+  m_Size: {x: 16.5, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &8679129139423017113
 GameObject:
@@ -230,3 +230,4 @@ MonoBehaviour:
   crowAnimator: {fileID: 8679129138699125995}
   crowTerritoryTile: {fileID: 7049822541281757637}
   crowScaringRegion: {fileID: 8679129138978568303}
+  comeDownCoolDown: 2.5

@@ -28,6 +28,7 @@ public class Movement : MonoBehaviour
     private float horizontal = 0f;
 
     float jumpVelocity; // will be calculated according to jump height
+    private bool movementEnable = true;
 
     void Awake() { 
 
@@ -44,14 +45,18 @@ public class Movement : MonoBehaviour
     }
 
     void Update() {
-        TakeInput();
-        if (enableSnappyFall) {
-            SnappyFall();
+        if (movementEnable) {
+            TakeInput();
+            if (enableSnappyFall) {
+                SnappyFall();
+            }
         }
     }
     void FixedUpdate() {
-        Move();
-        Jump();
+        if (movementEnable) {
+            Move();
+            Jump();
+        }
     }
 
     private void TakeInput() {
@@ -87,5 +92,12 @@ public class Movement : MonoBehaviour
     public void SnappyFall() {
         if (playerRB.velocity.y < 0)
             playerRB.velocity += Physics.gravity * playerRB.gravityScale * Vector2.up * (fallGravityMultiplier - 1f) * Time.deltaTime;
+    }
+
+    public void EnableMovement() {
+        movementEnable = true;
+    }
+    public void DisableMovement() {
+        movementEnable = false;
     }
 }

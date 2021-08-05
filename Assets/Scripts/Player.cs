@@ -35,18 +35,26 @@ public class Player : MonoBehaviour {
     }
 
     void UpdateAnimation() {
-        if (Mathf.Abs(playerRb.velocity.x) > 0.1f) {
-            if (currentAnimation != PlayerAnimations.run) {
-                PlayAnimation(PlayerAnimations.run);
-                currentAnimation = PlayerAnimations.run;
-            }
-        }
-        else if (playerRb.velocity.y != 0f) {
+        if (playerRb.velocity.y > 0f) {
             if (currentAnimation != PlayerAnimations.jump) {
                 PlayAnimation(PlayerAnimations.jump);
                 currentAnimation = PlayerAnimations.jump;
             }
         }
+        else if (playerRb.velocity.y < 0f) {
+            if (currentAnimation != PlayerAnimations.fall) {
+                PlayAnimation(PlayerAnimations.fall);
+                currentAnimation = PlayerAnimations.fall;
+            }
+        }
+
+        else if (Mathf.Abs(playerRb.velocity.x) > 0.1f) {
+            if (currentAnimation != PlayerAnimations.run) {
+                PlayAnimation(PlayerAnimations.run);
+                currentAnimation = PlayerAnimations.run;
+            }
+        }
+        
         else if (currentAnimation != PlayerAnimations.idle) {
             PlayAnimation(PlayerAnimations.idle);
             currentAnimation = PlayerAnimations.idle;
@@ -82,5 +90,6 @@ public class Player : MonoBehaviour {
 }
 
 public enum PlayerAnimations{
-    idle , run, jump
+    idle , run, jump,
+    fall
 }

@@ -26,10 +26,8 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void Start() {
-        UnloadLevel(LevelStages.Test);
-        LoadLevel(LevelStages.Farm);
-    }
+
+
 
     private void Update() {
         

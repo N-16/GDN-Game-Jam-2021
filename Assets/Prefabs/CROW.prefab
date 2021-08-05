@@ -230,4 +230,4 @@ MonoBehaviour:
   crowAnimator: {fileID: 8679129138699125995}
   crowTerritoryTile: {fileID: 7049822541281757637}
   crowScaringRegion: {fileID: 8679129138978568303}
-  comeDownCoolDown: 2.5
+  comeDownCoolDown: 1

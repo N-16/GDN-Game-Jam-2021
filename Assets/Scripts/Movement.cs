@@ -41,7 +41,6 @@ public class Movement : MonoBehaviour
 
     private void Start() {
         jumpVelocity = Mathf.Sqrt(2 * -playerRB.gravityScale * Physics2D.gravity.y * jumpHeight);
-        Debug.Log(Physics.gravity.y);
     }
 
     void Update() {

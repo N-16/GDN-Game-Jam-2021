@@ -239,6 +239,7 @@ MonoBehaviour:
     - characterName: Cena
       sentence: nth much wbu
     nextDialogueKey: 13
+    isConvoActive: 0
 --- !u!4 &233205653
 Transform:
   m_ObjectHideFlags: 0

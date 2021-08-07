@@ -13,6 +13,6 @@ public class MoveWithTransform : MonoBehaviour
     }
 
     private void Update() {
-        transform.position = Vector2.right * toFollow.position.x;
+        transform.position = new Vector2(toFollow.position.x, transform.position.y);
     }
 }

@@ -8,14 +8,20 @@ public class Conversation {
     public List<Dialogue> dialogues = new List<Dialogue>();
     public KeyCode nextDialogueKey = KeyCode.Return;
 
-    public bool isConvoOver { private set; get; }
+    public bool isConvoActive = false;
 
     int currentDialogueIndex = -1;
 
-    void MoveWithNextDialogue() {
+    public void EnterConversation() {
+        if (isConvoActive == false) {
+            isConvoActive = true;
+        }
+    }
+
+    public void MoveWithNextDialogue() {
         if (currentDialogueIndex + 1 == dialogues.Count) {
             currentDialogueIndex = -1;
-            isConvoOver = true;
+            isConvoActive = false;
             return;
         }
         currentDialogueIndex += 1;
@@ -26,8 +32,5 @@ public class Conversation {
         if (Input.GetKeyDown(nextDialogueKey)) {
             MoveWithNextDialogue();
         }
-    }
-    public void EndOfConversation() {
-        isConvoOver = false;
     }
 }

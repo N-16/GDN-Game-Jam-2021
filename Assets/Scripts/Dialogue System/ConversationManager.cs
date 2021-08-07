@@ -17,30 +17,33 @@ public class ConversationManager : MonoBehaviour
 
     void Awake() {
         _instance = this;
+        currentConvo = null;
     }
-    private void Start() {
-        StartConversation(ConversationName.Test);
-    }
+
 
     public List<Conversation> convos = new List<Conversation>();
     Conversation currentConvo;
-        bool convoActive = false;
+    bool convoActive = false;
 
-    public void StartConversation(ConversationName convoTag) {
-        foreach( Conversation convo in convos) {
-            if ( convo.convoName == convoTag) {
+    public void StartConversation(Conversation convo) { {
+            if (currentConvo == null) {
+                Debug.Log("STARTING CONVERSATION......");
                 convoActive = true;
                 currentConvo = convo;
-                break;
+                currentConvo.EnterConversation();
+                PlayerManager.Instance.DisablePlayerMovement();
+                return;
             }
+            Debug.Log("convo ongoing");
         }
     }
     private void Update() {
         if (convoActive) {
-            if (currentConvo.isConvoOver) { // if conversation is over
+            if (!currentConvo.isConvoActive) { // if conversation is over
                 convoActive = false;
                 UIDialogueManager.Instance.RemovePanel();
-                currentConvo.EndOfConversation();
+                currentConvo = null;
+                PlayerManager.Instance.EnablePlayerMovement();
                 return;
             }
             currentConvo.ConversationUpdate();
@@ -49,5 +52,5 @@ public class ConversationManager : MonoBehaviour
 }
 
 public enum ConversationName {
-    Test,
+    Test
 }

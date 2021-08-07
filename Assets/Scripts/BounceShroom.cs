@@ -14,7 +14,8 @@ public class BounceShroom : MonoBehaviour
     private void Update() {
         Collider2D  col = Physics2D.OverlapBox(bounceRegion.transform.position, bounceRegion.bounds.size, 0f, playerLayer);
         if (col && !onBounceCoolDown){
-            col.GetComponent<Rigidbody2D>().velocity = new Vector2(col.GetComponent<Rigidbody2D>().velocity.x, bounceForce);
+            //col.GetComponent<Rigidbody2D>().velocity = new Vector2(col.GetComponent<Rigidbody2D>().velocity.x, bounceForce);
+            col.GetComponent<Rigidbody2D>().velocity = transform.up * bounceForce;
             StartCoroutine(BounceCoolDownRoutine());
             bounceAnimation.SetTrigger("bounce");
         }

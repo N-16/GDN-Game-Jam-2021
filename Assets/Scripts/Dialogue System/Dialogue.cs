@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class Dialogue {
     public string characterName  = "beta";
+    [TextArea (3, 5)]
     public string sentence = "maybe u forgot to fill the sentences lol";
 
     public virtual void StartDialogue() {

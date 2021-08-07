@@ -15,6 +15,7 @@ public class Conversation {
     public void EnterConversation() {
         if (isConvoActive == false) {
             isConvoActive = true;
+            MoveWithNextDialogue();
         }
     }
 

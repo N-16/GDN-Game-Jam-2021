@@ -12,6 +12,7 @@ public class RainstormLevel : MonoBehaviour {
         SoundManager.Instance.PlaySound(soundsType.RainAmbience);
         PlayerManager.Instance.SetFootstep(soundsType.WaterFootstep);
         PlayerManager.Instance.SetCameraMode(CameraType.ParkourCamera);
+        PlayerManager.Instance.SetRespawnPosition(playerSpawnPos);
         PlayerManager.Instance.SpawnPlayer(playerSpawnPos);
     }
 

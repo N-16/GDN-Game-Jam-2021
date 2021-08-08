@@ -15,33 +15,38 @@ public class Crow : MonoBehaviour
     bool onFlight = false;
 
     private void Update() {
-        if (Physics2D.OverlapBox(crowTerritoryTile.transform.position, crowTerritoryTile.bounds.size, 0f, playerLayer)) {
-            AttackPlayer();
-            
-        }
-        if (!onFlight) {
-            if (Physics2D.OverlapBox(crowScaringRegion.transform.position, crowScaringRegion.bounds.size, 0f, scareCrowLayer)) {
-                StopCoroutine(ComeDownCoroutine());
-                StopCoroutine(FlyToIdleTransition());
-                PlayAnimation(CrowAnimations.Fly);
-                crowSpriteAnimator.SetBool("flying", true);
-                onFlight = true;
+            if (Physics2D.OverlapBox(crowTerritoryTile.transform.position, crowTerritoryTile.bounds.size, 0f, playerLayer)) {
+                AttackPlayer();
+
             }
-        }
-        else {
-            if (!Physics2D.OverlapBox(crowScaringRegion.transform.position, crowScaringRegion.bounds.size, 0f, scareCrowLayer)) {
-                StartCoroutine(ComeDownCoroutine());
-                onFlight = false;
+            if (!onFlight) {
+                if (Physics2D.OverlapBox(crowScaringRegion.transform.position, crowScaringRegion.bounds.size, 0f, scareCrowLayer)) {
+                    StopCoroutine(ComeDownCoroutine());
+                    StopCoroutine(FlyToIdleTransition());
+                    PlayAnimation(CrowAnimations.Fly);
+                    crowSpriteAnimator.SetBool("flying", true);
+                    onFlight = true;
+                }
             }
-        }
+            else {
+                if (!Physics2D.OverlapBox(crowScaringRegion.transform.position, crowScaringRegion.bounds.size, 0f, scareCrowLayer)) {
+                    StartCoroutine(ComeDownCoroutine());
+                    onFlight = false;
+                }
+            }
+        
     }
 
     private void AttackPlayer() {
-        StopCoroutine(ComeDownCoroutine());
-        StopCoroutine(FlyToIdleTransition());
-        crowSpriteAnimator.SetBool("flying", true);
-        PlayAnimation(CrowAnimations.Attack);
-        GameManager.Instance.OnPlayerDeath();
+        if (!PlayerManager.Instance.IsDead()) {
+            StopCoroutine(ComeDownCoroutine());
+            StopCoroutine(FlyToIdleTransition());
+            crowSpriteAnimator.SetBool("flying", true);
+            PlayAnimation(CrowAnimations.Attack);
+            PlayerManager.Instance.OnPlayerDeath();
+            Debug.Log("Calling dead");
+        }
+        
     }
 
     void PlayAnimation(CrowAnimations animation) {
@@ -60,6 +65,8 @@ public class Crow : MonoBehaviour
         yield return new WaitForSeconds(flyToIdleTransitionTime);
         crowSpriteAnimator.SetBool("flying", false);
     }
+
+
 }
 
 public enum CrowAnimations {

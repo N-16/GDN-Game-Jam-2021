@@ -10,6 +10,9 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] GameObject parkourCamera, zoomedInCamera;
     [SerializeField] Rigidbody2D playerRb;
     [SerializeField] Animator playerAnimator;
+
+    Vector3 respawnPosition;
+    public bool dead = false;
     private static PlayerManager _instance;
 
     public static PlayerManager Instance {
@@ -28,6 +31,11 @@ public class PlayerManager : MonoBehaviour
         playerTransform.position = pos;
         playerRb.isKinematic = false;
         playerMovement.EnableMovement();
+    }
+
+    public void SpawnAtRespawnPoint() {
+        SpawnPlayer(respawnPosition);
+        Debug.Log("respawned at" + respawnPosition);
     }
 
     public void DespawnPlayer() {
@@ -74,9 +82,41 @@ public class PlayerManager : MonoBehaviour
         StartCoroutine(DisableKneelRoutine());
     }
 
+    public void SetRespawnPosition(Vector3 pos) {
+        respawnPosition = pos;
+    }
+
+    public void Die() {
+        if (!dead) {
+            playerMovement.DisableMovement();
+            playerAnimator.SetTrigger("die");
+            dead = true;
+        }
+    }
+
+    public void Revive() {
+        if (dead) {
+            playerAnimator.SetTrigger("revive");
+            playerMovement.EnableMovement();
+            StartCoroutine(InVulnerableRoutine());
+        }
+    }
+
+    public void OnPlayerDeath() {
+        UIManager.Instance.SetAfterDeadUI(true);
+        Die();
+    }
+
     IEnumerator DisableKneelRoutine() {
         yield return new WaitForSeconds(3f);
         playerAnimator.SetTrigger("kneelOver");
+    }
+    public bool IsDead() {
+        return dead;
+    }
+    IEnumerator InVulnerableRoutine() {
+        yield return new WaitForSeconds(2f);
+        dead = false;
     }
 }
 

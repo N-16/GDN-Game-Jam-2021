@@ -262,12 +262,12 @@ MonoBehaviour:
     looping: 1
     soundType: 5
     source: {fileID: 0}
-  - volume: 0.425
+  - volume: 0.315
     clip: {fileID: 8300000, guid: d1cdf1b83ea6c0b45bafa7980ec7a661, type: 3}
     looping: 1
     soundType: 6
     source: {fileID: 0}
-  - volume: 0.501
+  - volume: 0.315
     clip: {fileID: 8300000, guid: 9c0d59cb264d2f14b857a3b2d4f4374e, type: 3}
     looping: 0
     soundType: 7

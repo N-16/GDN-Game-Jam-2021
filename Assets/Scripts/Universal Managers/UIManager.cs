@@ -21,7 +21,7 @@ public class UIManager : MonoBehaviour {
     }
 
     [SerializeField] Text bigCentredText;
-    [SerializeField] GameObject MainMenu;
+    [SerializeField] GameObject MainMenu, AfterDeadUI;
     [SerializeField] Image fadeImage;
     [SerializeField] Animator fadeController;
 
@@ -54,6 +54,26 @@ public class UIManager : MonoBehaviour {
     public void OnQuitButton() {
         FadeOut();
         Application.Quit();
+    }
+
+    public void SetAfterDeadUI(bool set) {
+        if (set) {
+            AfterDeadUI.SetActive(true);
+            return;
+        }
+        AfterDeadUI.SetActive(false);
+    }
+    public void OnRespawnButton() {
+        if (GameManager.Instance.currentLevel.levelName == LevelStages.Farm) {
+            SetAfterDeadUI(false);
+            PlayerManager.Instance.Revive();
+            GameManager.Instance.ReloadLevel();
+        }
+        else {
+            SetAfterDeadUI(false);
+            PlayerManager.Instance.SpawnAtRespawnPoint();
+            PlayerManager.Instance.Revive();
+        }
     }
 
     IEnumerator QuitRoutine() {

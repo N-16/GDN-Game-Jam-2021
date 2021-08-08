@@ -6,6 +6,7 @@ public class FarmLevel : MonoBehaviour
 {
     [SerializeField] Vector2 playerSpawnPos;
 
+
     bool levelExited = false;
     // Start is called before the first frame update
     void Awake()
@@ -15,7 +16,9 @@ public class FarmLevel : MonoBehaviour
         PlayerManager.Instance.SetFootstep(soundsType.GrassFootstep);
         PlayerManager.Instance.SetCameraMode(CameraType.ZoomedInCamera);
         PlayerManager.Instance.SpawnPlayer(playerSpawnPos);
+        SoundManager.Instance.StopSound(soundsType.FarmAmbience);
         SoundManager.Instance.PlaySound(soundsType.FarmAmbience);
+        PlayerManager.Instance.SetRespawnPosition(playerSpawnPos);
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
@@ -26,6 +29,7 @@ public class FarmLevel : MonoBehaviour
             levelExited = true;
         }
     }
+
 
     IEnumerator ExitLevelRoutine() {
         yield return new WaitForSeconds(2f);

@@ -176,6 +176,9 @@ MonoBehaviour:
   - levelName: 0
     sceneName: Morning Lore Scene
     playerDefaultSpawn: {x: 0, y: 20}
+  - levelName: 3
+    sceneName: Sunset End Scene
+    playerDefaultSpawn: {x: 0, y: 20}
 --- !u!4 &231904936
 Transform:
   m_ObjectHideFlags: 0
@@ -264,10 +267,15 @@ MonoBehaviour:
     looping: 1
     soundType: 6
     source: {fileID: 0}
-  - volume: 0.635
+  - volume: 0.501
     clip: {fileID: 8300000, guid: 9c0d59cb264d2f14b857a3b2d4f4374e, type: 3}
     looping: 0
     soundType: 7
+    source: {fileID: 0}
+  - volume: 0.078
+    clip: {fileID: 8300000, guid: 4e1f4705817b7964796e6f419af7a0ee, type: 3}
+    looping: 0
+    soundType: 10
     source: {fileID: 0}
   grassFootsteps:
   - volume: 0.677

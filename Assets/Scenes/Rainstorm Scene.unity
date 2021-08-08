@@ -79239,6 +79239,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: orange hair woman
       objectReference: {fileID: 0}
+    - target: {fileID: 3111805703092691751, guid: 9e223f6566e8a5c42aa684a68721bd67, type: 3}
+      propertyPath: convo.dialogues.Array.data[0].sentence
+      value: Good Afternoon, Do you happen to know what those orange things are?
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e223f6566e8a5c42aa684a68721bd67, type: 3}
 --- !u!1001 &6672094429669527235

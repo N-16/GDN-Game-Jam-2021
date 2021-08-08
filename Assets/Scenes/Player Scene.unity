@@ -501,6 +501,14 @@ PrefabInstance:
       value: 69.745
       objectReference: {fileID: 0}
     - target: {fileID: 5782172062235996628, guid: a16c97a6fe4d0714aaa29b1654886405, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.16015059
+      objectReference: {fileID: 0}
+    - target: {fileID: 5782172062235996628, guid: a16c97a6fe4d0714aaa29b1654886405, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.2783931
+      objectReference: {fileID: 0}
+    - target: {fileID: 5782172062235996628, guid: a16c97a6fe4d0714aaa29b1654886405, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.67508346
       objectReference: {fileID: 0}
@@ -640,7 +648,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 759666928}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -31.41, y: -22.2, z: 1}
+  m_LocalPosition: {x: 13.2, y: 0.88, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 304315671}
@@ -782,6 +790,7 @@ MonoBehaviour:
   parkourCamera: {fileID: 817207901}
   zoomedInCamera: {fileID: 885537897}
   playerRb: {fileID: 759666935}
+  playerAnimator: {fileID: 759666929}
 --- !u!1 &817207901
 GameObject:
   m_ObjectHideFlags: 0
@@ -842,7 +851,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 817207901}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -31.41, y: -20.012, z: -9}
+  m_LocalPosition: {x: 13.199999, y: 3.0680003, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2128248124}

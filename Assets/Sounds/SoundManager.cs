@@ -140,7 +140,8 @@ public enum soundsType
     FarmAmbience,
     ScareCrowInteraction,
     GrassFootstep,
-    WaterFootstep
+    WaterFootstep,
+    MushroomBounce
 }
 
 public enum FootstepType {

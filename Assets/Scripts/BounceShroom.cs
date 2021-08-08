@@ -18,6 +18,7 @@ public class BounceShroom : MonoBehaviour
             col.GetComponent<Rigidbody2D>().velocity = transform.up * bounceForce;
             StartCoroutine(BounceCoolDownRoutine());
             bounceAnimation.SetTrigger("bounce");
+            SoundManager.Instance.PlaySound(soundsType.MushroomBounce);
         }
     }
 

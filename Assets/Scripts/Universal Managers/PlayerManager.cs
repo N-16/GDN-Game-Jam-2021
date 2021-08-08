@@ -9,6 +9,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] Movement playerMovement;
     [SerializeField] GameObject parkourCamera, zoomedInCamera;
     [SerializeField] Rigidbody2D playerRb;
+    [SerializeField] Animator playerAnimator;
     private static PlayerManager _instance;
 
     public static PlayerManager Instance {
@@ -64,6 +65,18 @@ public class PlayerManager : MonoBehaviour
         }
         parkourCamera.SetActive(false);
         zoomedInCamera.SetActive(true);
+    }
+
+    public void PlayTheFinale() {
+        DisablePlayerMovement();
+        playerRb.velocity = new Vector2(0f, 0f);
+        playerAnimator.SetTrigger("kneel");
+        StartCoroutine(DisableKneelRoutine());
+    }
+
+    IEnumerator DisableKneelRoutine() {
+        yield return new WaitForSeconds(3f);
+        playerAnimator.SetTrigger("kneelOver");
     }
 }
 

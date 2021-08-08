@@ -17,6 +17,7 @@ public class Player : MonoBehaviour {
     GameObject scareCrowCarried;
     public soundsType footstepMode = soundsType.GrassFootstep;
     public soundsType fallSoundMode = soundsType.FallGrassSound;
+    float timeOfLastFallSound;
     void Start()
     {
         PlayAnimation(PlayerAnimations.idle);
@@ -37,7 +38,7 @@ public class Player : MonoBehaviour {
     }
 
     void UpdateAnimation() {
-        if (playerRb.velocity.y > 0f) {
+        if (playerRb.velocity.y > 0.1f) {
             if (currentAnimation != PlayerAnimations.jump) {
                 PlayAnimation(PlayerAnimations.jump);
                 SoundManager.Instance.PlaySound(soundsType.JumpSound);
@@ -51,7 +52,7 @@ public class Player : MonoBehaviour {
             }
         }
 
-        else if (Mathf.Abs(playerRb.velocity.x) > 0.1f) {
+        else if (Mathf.Abs(playerRb.velocity.x) > 0.05f) {
             if (currentAnimation != PlayerAnimations.run) {
                 if (currentAnimation == PlayerAnimations.fall) {
                     SoundManager.Instance.PlaySound(fallSoundMode);
@@ -63,7 +64,10 @@ public class Player : MonoBehaviour {
         
         else if (currentAnimation != PlayerAnimations.idle) {
             if (currentAnimation == PlayerAnimations.fall) {
-                SoundManager.Instance.PlaySound(fallSoundMode);
+                if (Time.time - timeOfLastFallSound > 0.5f) {
+                    SoundManager.Instance.PlaySound(fallSoundMode);
+                    timeOfLastFallSound = Time.time;
+                }
             }
             PlayAnimation(PlayerAnimations.idle);
             currentAnimation = PlayerAnimations.idle;

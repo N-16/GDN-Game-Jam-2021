@@ -10,16 +10,12 @@ public class Parallax : MonoBehaviour
     [SerializeField] private float parallaxFx;
     void Awake()
     {
-        spriteLength = GetComponent<SpriteRenderer>().bounds.size.x;
-
+        //spriteLength = GetComponent<SpriteRenderer>().bounds.size.x;
+        startPos = transform.position.x;
     }
 
     void Update()
     {
         transform.position = new Vector3(startPos + (Camera.main.transform.position.x * parallaxFx), transform.position.y, transform.position.z);
-        if (Camera.main.transform.position.x - (Camera.main.transform.position.x * parallaxFx) > startPos + spriteLength)
-            startPos += spriteLength;
-        else if (Camera.main.transform.position.x - (Camera.main.transform.position.x * parallaxFx) < startPos - spriteLength)
-            startPos -= spriteLength;
     }
 }

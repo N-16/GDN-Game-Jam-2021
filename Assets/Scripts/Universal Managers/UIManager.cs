@@ -1,10 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
-{
+public class UIManager : MonoBehaviour {
     private static UIManager _instance;
 
     public static UIManager Instance {
@@ -21,8 +21,44 @@ public class UIManager : MonoBehaviour
     }
 
     [SerializeField] Text bigCentredText;
+    [SerializeField] GameObject MainMenu;
+    [SerializeField] Image fadeImage;
+    [SerializeField] Animator fadeController;
+
+    [SerializeField] Animator mainMenuUIAnimator;
+
 
     public void DisplayBigCentredText(string text) {
         bigCentredText.text = text;
     }
+
+    public void FadeOut() {
+        fadeController.SetBool("FadeIn", false);
+        fadeController.SetTrigger("FadeOut");
+    }
+    public void FadeIn() {
+        fadeController.SetBool("FadeIn", true);
+    }
+
+    public void OpenMainMenu() {
+        mainMenuUIAnimator.SetTrigger("OpenMainMenu");
+    }
+    public void CloseMainMenu() {
+        mainMenuUIAnimator.SetTrigger("CloseMainMenu");
+    }
+    public void OnPlayButton() {
+        FadeOut();
+        CloseMainMenu();
+        GameManager.Instance.LoadLevel(LevelStages.EntryLore);
+    }
+    public void OnQuitButton() {
+        FadeOut();
+        Application.Quit();
+    }
+
+    IEnumerator QuitRoutine() {
+        yield return new WaitForSeconds(0.5f);
+        Application.Quit();
+    }
+
 }

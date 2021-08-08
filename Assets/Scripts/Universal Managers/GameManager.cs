@@ -39,9 +39,6 @@ public class GameManager : MonoBehaviour
     public void LoadLevel(LevelStages levelNameNoCapsBro) {
         foreach(GameLevel level in levels) {
             if (level.levelName == levelNameNoCapsBro) {
-                //unload current level
-                //load scene 
-                //load player
                 if (!SceneManager.GetSceneByName(level.sceneName).isLoaded) {
                     SceneManager.LoadSceneAsync(level.sceneName, LoadSceneMode.Additive);
                     PlayerManager.Instance.SpawnPlayer(level.playerDefaultSpawn);

@@ -18,6 +18,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private List<Sound> sounds;
     [SerializeField] private List<Sound> grassFootsteps;
     [SerializeField] private List<Sound> waterFootsteps;
+
+    Sound soundsOnSmooothStop;
     private void Awake()
     {
         _instance = this;
@@ -89,6 +91,33 @@ public class SoundManager : MonoBehaviour
             return;
         }
         Debug.LogError("Invalid Footstep sound");
+    }
+
+    public void SmoothStop(soundsType type, float timeOfStop) {
+        if (soundsOnSmooothStop != null) {
+            StopSound(type);
+            Debug.Log("Sound Already on smoothstop");
+            return;
+        }
+        foreach (Sound sound in sounds) {
+            if (type == sound.soundType) {
+                StartCoroutine(SoundStopCoroutine(sound, sound.volume, timeOfStop));
+                soundsOnSmooothStop = sound;
+            }
+        }
+    }
+
+    IEnumerator SoundStopCoroutine(Sound soundToStop, float orgVolume, float timeOfStop) {
+        yield return new WaitForSeconds(timeOfStop);
+        StopSound(soundToStop.soundType);
+        soundToStop.source.volume = orgVolume;
+        soundsOnSmooothStop = null;
+    }
+
+    void Update() {
+        if (soundsOnSmooothStop != null) {
+            soundsOnSmooothStop.source.volume -= 0.05f;
+        }
     }
 }
 [System.Serializable]

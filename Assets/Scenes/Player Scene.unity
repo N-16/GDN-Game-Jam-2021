@@ -640,7 +640,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 759666928}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.1, y: 0.84, z: 1}
+  m_LocalPosition: {x: -31.41, y: -22.2, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 304315671}
@@ -751,7 +751,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 759666928}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -781,6 +781,7 @@ MonoBehaviour:
   playerMovement: {fileID: 759666932}
   parkourCamera: {fileID: 817207901}
   zoomedInCamera: {fileID: 885537897}
+  playerRb: {fileID: 759666935}
 --- !u!1 &817207901
 GameObject:
   m_ObjectHideFlags: 0
@@ -841,7 +842,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 817207901}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.099999, y: 3.028, z: -9}
+  m_LocalPosition: {x: -31.41, y: -20.012, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2128248124}

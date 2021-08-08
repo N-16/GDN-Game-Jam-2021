@@ -8,6 +8,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] Player player;
     [SerializeField] Movement playerMovement;
     [SerializeField] GameObject parkourCamera, zoomedInCamera;
+    [SerializeField] Rigidbody2D playerRb;
     private static PlayerManager _instance;
 
     public static PlayerManager Instance {
@@ -24,6 +25,13 @@ public class PlayerManager : MonoBehaviour
 
     public void SpawnPlayer(Vector2 pos) {
         playerTransform.position = pos;
+        playerRb.isKinematic = false;
+        playerMovement.EnableMovement();
+    }
+
+    public void DespawnPlayer() {
+        playerMovement.DisableMovement();
+        playerRb.isKinematic = true;
     }
 
     public void DisablePlayerMovement() {

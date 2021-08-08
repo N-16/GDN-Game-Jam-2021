@@ -41,7 +41,6 @@ public class GameManager : MonoBehaviour
             if (level.levelName == levelNameNoCapsBro) {
                 if (!SceneManager.GetSceneByName(level.sceneName).isLoaded) {
                     SceneManager.LoadSceneAsync(level.sceneName, LoadSceneMode.Additive);
-                    PlayerManager.Instance.SpawnPlayer(level.playerDefaultSpawn);
                 }
                 return;
             }
@@ -53,12 +52,18 @@ public class GameManager : MonoBehaviour
             if (level.levelName == levelName) {
                 //load scene 
                 //load player
+                PlayerManager.Instance.DespawnPlayer();
                 if (SceneManager.GetSceneByName(level.sceneName).isLoaded) {
                     SceneManager.UnloadSceneAsync(level.sceneName, UnloadSceneOptions.None);
                 }
                 return;
             }
         }
+    }
+
+    public void LoadAfterUnloadLevel(LevelStages unload, LevelStages load) {
+        UnloadLevel(unload);
+        LoadLevel(load);
     }
 
 }

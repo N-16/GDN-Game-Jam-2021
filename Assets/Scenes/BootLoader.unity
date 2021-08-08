@@ -254,7 +254,7 @@ MonoBehaviour:
     looping: 1
     soundType: 4
     source: {fileID: 0}
-  - volume: 0.302
+  - volume: 0.078
     clip: {fileID: 8300000, guid: c784abb8271801d4481bd86dbfd5db1a, type: 3}
     looping: 1
     soundType: 5

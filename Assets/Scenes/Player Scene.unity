@@ -669,6 +669,8 @@ MonoBehaviour:
   scareCrowDummy: {fileID: 1207623531}
   scareCrowPickupKey: 120
   playerCollider: {fileID: 759666934}
+  footstepMode: 9
+  fallSoundMode: 0
 --- !u!114 &759666932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -777,6 +779,8 @@ MonoBehaviour:
   playerTransform: {fileID: 759666930}
   player: {fileID: 759666931}
   playerMovement: {fileID: 759666932}
+  parkourCamera: {fileID: 817207901}
+  zoomedInCamera: {fileID: 885537897}
 --- !u!1 &817207901
 GameObject:
   m_ObjectHideFlags: 0

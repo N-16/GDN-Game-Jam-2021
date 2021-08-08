@@ -15,6 +15,8 @@ public class Player : MonoBehaviour {
     PlayerAnimations currentAnimation = PlayerAnimations.idle;
     Transform scareCrowOrgParent;
     GameObject scareCrowCarried;
+    public soundsType footstepMode = soundsType.GrassFootstep;
+    public soundsType fallSoundMode = soundsType.FallGrassSound;
     void Start()
     {
         PlayAnimation(PlayerAnimations.idle);
@@ -38,6 +40,7 @@ public class Player : MonoBehaviour {
         if (playerRb.velocity.y > 0f) {
             if (currentAnimation != PlayerAnimations.jump) {
                 PlayAnimation(PlayerAnimations.jump);
+                SoundManager.Instance.PlaySound(soundsType.JumpSound);
                 currentAnimation = PlayerAnimations.jump;
             }
         }
@@ -50,12 +53,18 @@ public class Player : MonoBehaviour {
 
         else if (Mathf.Abs(playerRb.velocity.x) > 0.1f) {
             if (currentAnimation != PlayerAnimations.run) {
+                if (currentAnimation == PlayerAnimations.fall) {
+                    SoundManager.Instance.PlaySound(fallSoundMode);
+                }
                 PlayAnimation(PlayerAnimations.run);
                 currentAnimation = PlayerAnimations.run;
             }
         }
         
         else if (currentAnimation != PlayerAnimations.idle) {
+            if (currentAnimation == PlayerAnimations.fall) {
+                SoundManager.Instance.PlaySound(fallSoundMode);
+            }
             PlayAnimation(PlayerAnimations.idle);
             currentAnimation = PlayerAnimations.idle;
         }
@@ -72,6 +81,8 @@ public class Player : MonoBehaviour {
             scareCrow.SetActive(false);
             scareCrowDummy.SetActive(true);
             scareCrowCarried = scareCrow;
+
+            SoundManager.Instance.PlaySound(soundsType.ScareCrowInteraction);
             return;
         }
         Debug.Log("Already carrying Scare Crow");
@@ -83,9 +94,14 @@ public class Player : MonoBehaviour {
             scareCrowCarried.SetActive(true);
             scareCrowDummy.SetActive(false);
             scareCrowCarried = null;
+            SoundManager.Instance.PlaySound(soundsType.ScareCrowInteraction);
             return;
         }
         Debug.Log("no scareCrow pickedUP");
+    }
+
+    public void PlayFootStepSound() {
+        SoundManager.Instance.PlayFootstep(footstepMode);
     }
 }
 

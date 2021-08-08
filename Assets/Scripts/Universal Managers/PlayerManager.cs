@@ -7,6 +7,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] Transform playerTransform;
     [SerializeField] Player player;
     [SerializeField] Movement playerMovement;
+    [SerializeField] GameObject parkourCamera, zoomedInCamera;
     private static PlayerManager _instance;
 
     public static PlayerManager Instance {
@@ -34,4 +35,31 @@ public class PlayerManager : MonoBehaviour
     public Transform GetTransform() {
         return playerTransform;
     }
+    public void SetFootstep(soundsType footstep) {
+        if (footstep != soundsType.WaterFootstep && footstep != soundsType.GrassFootstep) {
+            Debug.LogError("Invalid Footstep");
+            return;
+        }
+        player.footstepMode = footstep;
+        if (footstep == soundsType.WaterFootstep) {
+            player.fallSoundMode = soundsType.FallWaterSound;
+            return;
+        }
+        player.fallSoundMode = soundsType.FallGrassSound;
+    }
+
+    public void SetCameraMode(CameraType camType) {
+        if (camType == CameraType.ParkourCamera) {
+            zoomedInCamera.SetActive(false);
+            parkourCamera.SetActive(true);
+            return;
+        }
+        parkourCamera.SetActive(false);
+        zoomedInCamera.SetActive(true);
+    }
 }
+
+public enum CameraType {
+    ParkourCamera, ZoomedInCamera
+}
+
